@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile</title>
+  <style>
+    /* ---- Base Styling ---- */
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 0;
+      background: linear-gradient(135deg, #4a90e2, #7b61ff);
+      color: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    header img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid white;
+      object-fit: cover;
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    header img:hover {
+      transform: scale(1.1);
+    }
+
+    h1 {
+      margin: 10px 0 5px;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    section {
+      background: white;
+      margin: 25px 0;
+      padding: 20px 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #4a90e2;
+      border-bottom: 2px solid #4a90e2;
+      padding-bottom: 5px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 6px 0;
+      padding-left: 1em;
+      position: relative;
+    }
+
+    li::before {
+      content: "•";
+      color: #4a90e2;
+      position: absolute;
+      left: 0;
+    }
+
+    /* ---- Dark Mode ---- */
+    body.dark {
+      background: #1e1e2f;
+      color: #f1f1f1;
+    }
+
+    body.dark section {
+      background: #2b2b3c;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    body.dark h2 {
+      color: #9cc1ff;
+      border-color: #9cc1ff;
+    }
+
+    /* ---- Theme Toggle Button ---- */
+    .theme-toggle {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: #7b61ff;
+    }
+
+    /* ---- Fade In Animation ---- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <button class="theme-toggle" title="Toggle Theme">🌙</button>
+
+  <div class="container">
+    <header class="fade-in">
+      <img src="profile.jpg" alt="Profile Picture">
+      <h1>Your Name</h1>
+      <p>Software Engineer | Data Enthusiast | Problem Solver</p>
+    </header>
+
+    <section class="fade-in">
+      <h2>About Me</h2>
+      <p>
+        Hello! I’m a passionate developer who loves solving problems, building scalable systems,
+        and learning new technologies. I enjoy working with both backend and frontend systems
+        and aspire to make an impact with my work.
+      </p>
+    </section>
+
+    <section class="fade-in">
+      <h2>Education</h2>
+      <ul>
+        <li>10th Standard – Saraf Public School (9.6 CGPA)</li>
+        <li>12th Standard – Alchemist Senior Secondary School (79.4%)</li>
+        <li>Graduation – B.Tech in Information Technology, G.B.P.U.A.T Pantnagar (7.39 GPA)</li>
+        <li>Masters – M.Tech in CSE, IIIT Hyderabad</li>
+      </ul>
+    </section>
+
+    <section class="fade-in">
+      <h2>Experience</h2>
+      <ul>
+        <li>SDE Intern – Infomo Global (6 months)</li>
+        <li>Data Engineer I – Infomo Global (7 months)</li>
+      </ul>
+    </section>
+
+    <section class="fade-in">
+      <h2>Skills</h2>
+      <ul>
+        <li>Languages: Java, Python, C++</li>
+        <li>Backend: Kafka, Spark, Hadoop</li>
+        <li>Databases: MySQL, Druid</li>
+        <li>Cloud: GCP, AWS</li>
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    // Theme Toggle
+    const toggleBtn = document.querySelector('.theme-toggle');
+    const body = document.body;
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      toggleBtn.textContent = body.classList.contains('dark') ? '☀️' : '🌙';
+    });
+
+    // Fade-in animation when scrolling
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = { threshold: 0.2 };
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('appear');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => appearOnScroll.observe(fader));
+  </script>
+</body>
+</html>
